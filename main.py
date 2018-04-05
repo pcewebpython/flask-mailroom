@@ -7,6 +7,10 @@ from model import Donation
 
 app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return redirect(url_for('all'))
+
 @app.route('/donations/')
 def all():
     donations = Donation.select()
