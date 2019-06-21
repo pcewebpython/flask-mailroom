@@ -22,5 +22,7 @@ charlie.save()
 donors = [alice, bob, charlie]
 
 for x in range(30):
+    # print(random.choice(donors))
+    # print(random.randint(100, 10000))
     Donation(donor=random.choice(donors), value=random.randint(100, 10000)).save()
 

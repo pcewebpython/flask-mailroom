@@ -1,3 +1,6 @@
+venv
+.vscode
+douglas-klos.assignment.1.zip
 __pycache__/
 .idea/
 my_database.db
