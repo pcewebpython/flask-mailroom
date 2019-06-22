@@ -1,6 +1,12 @@
 # Flask Mailroom Application
 
-Running at [http://afternoon-reef-51666.herokuapp.com/donations/](http://afternoon-reef-51666.herokuapp.com/donations/).
+* Completed all required tasks.
+* Completed optional task 1 - New user is created if entered name does not exist.
+* Completed optional task 2 - Users are required to login to add donations, but can view regardless.
+    Further, a logout button has been created, that, you guessed it, logs the user out of the session.
+
+ 
+Running at [https://whispering-oasis-78925.herokuapp.com/donations/](https://whispering-oasis-78925.herokuapp.com/donations/).
 
 ## Your Task
 
