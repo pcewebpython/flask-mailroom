@@ -15,8 +15,7 @@ class Donor(Model):
 
 class Donation(Model):
     value = IntegerField()
-    # value = CharField(max_length=255)
-    donor = ForeignKeyField(model=Donor, null=True)#, backref='donations')
+    donor = ForeignKeyField(model=Donor, null=True, backref='donations')
 
     class Meta:
         database = db
