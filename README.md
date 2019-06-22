@@ -4,9 +4,10 @@
 * Completed optional task 1 - New user is created if entered name does not exist.
 * Completed optional task 2 - Users are required to login to add donations, but can view regardless.
     Further, a logout button has been created, that, you guessed it, logs the user out of the session.
+* Completed optional task 3 - Donors page, allows entry of specified donor and displays results.
 
  
-Running at [https://whispering-oasis-78925.herokuapp.com/donations/](https://whispering-oasis-78925.herokuapp.com/donations/).
+Running at [https://whispering-oasis-78925.herokuapp.com/](https://whispering-oasis-78925.herokuapp.com/).
 
 ## Your Task
 

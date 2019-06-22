@@ -3,6 +3,7 @@
 {% block subtitle %}Donations{% endblock subtitle %}
 
 {% block content %}
+<b>Donations:</b>
 <ul>
     {% for donation in donations %}
         <li><b>{{ donation.donor.name }}</b>: {{ donation.value }}</li>
