@@ -1,28 +1,31 @@
+#!/usr/bin/env python3
+
 import random
+from model import db, Donor, Donation, User
+from passlib.hash import pbkdf2_sha256
 
-from model import db, Donor, Donation 
 
-db.connect()
+def main():
+    db.drop_tables([Donor, Donation, User])
+    db.create_tables([Donor, Donation, User])
 
-# This line will allow you "upgrade" an existing database by
-# dropping all existing tables from it.
-db.drop_tables([Donor, Donation])
+    alice = Donor(name="Alice")
+    alice.save()
 
-db.create_tables([Donor, Donation])
+    bob = Donor(name="Bob")
+    bob.save()
 
-alice = Donor(name="Alice")
-alice.save()
+    charlie = Donor(name="Charlie")
+    charlie.save()
 
-bob = Donor(name="Bob")
-bob.save()
+    donors = [alice, bob, charlie]
 
-charlie = Donor(name="Charlie")
-charlie.save()
+    for x in range(30):
+        Donation(donor=random.choice(donors), value=random.randint(100, 10000)).save()
 
-donors = [alice, bob, charlie]
+    User(name="admin", password=pbkdf2_sha256.hash("password")).save()
+    User(name="doug", password=pbkdf2_sha256.hash("doug")).save()
 
-for x in range(30):
-    # print(random.choice(donors))
-    # print(random.randint(100, 10000))
-    Donation(donor=random.choice(donors), value=random.randint(100, 10000)).save()
 
+if __name__ == "__main__":
+    main()
