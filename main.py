@@ -9,31 +9,37 @@ from passlib.hash import pbkdf2_sha256
 from model import Donation, Donor, User
 
 
-APP = Flask(__name__)
-APP.secret_key = b'\x8d\xe5\xdf\x08L\xda<\x06S\xca\xab:\x8a\xee\xef\xfa\xfedV\xa84b\x06j\xd7N\xbf;\xe7\x174\x1a'
+app = Flask(__name__)
+app.secret_key = b'\x8d\xe5\xdf\x08L\xda<\x06S\xca\xab:\x8a\xee\xef\xfa\xfedV\xa84b\x06j\xd7N\xbf;\xe7\x174\x1a'
+# app.secret_key = os.environ.get('SECRET_KEY').encode()
 
 
-@APP.route('/')
+
+@app.route('/')
 def home():
     """ Returns the homepage for mailroom """
     return redirect(url_for('all_donations'))
 
 
-@APP.route('/donations/')
+@app.route('/donations/')
 def all_donations():
     """ Gets all donations from database and returns page with donations """
     donations = Donation.select()
     return render_template('donations.jinja2', donations=donations)
 
 
-@APP.route('/add/', methods=['GET', 'POST'])
+@app.route('/add/', methods=['GET', 'POST'])
 def add_donation():
     """ Adds new donations to database.
 
     Requires user to be logged in (session['logged_in']==True)
     If users not logged in, returns login page.
     """
-    if session['logged_in'] is not True:
+    try:
+        if session['logged_in'] is not True:
+            return redirect(url_for('login'))
+    except KeyError:
+        session['logged_in'] = False
         return redirect(url_for('login'))
     if request.method == 'POST':
         try:
@@ -47,7 +53,7 @@ def add_donation():
     return render_template('add.jinja2')
 
 
-@APP.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     """ Login page for users, required to add donation """
     if request.method == 'POST':
@@ -59,7 +65,7 @@ def login():
     return render_template('login.jinja2')
 
 
-@APP.route('/logout')
+@app.route('/logout')
 def logout():
     """ Logout page.
 
@@ -72,7 +78,7 @@ def logout():
 def main():
     """ We Wuz Main """
     port = int(os.environ.get("PORT", 6738))
-    APP.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port)
 
 
 if __name__ == "__main__":

@@ -1,10 +1,15 @@
+appdirs==1.4.3
+attrs==19.1.0
+black==19.3b0
 click==6.7
 Flask==0.12.3
 gunicorn==19.9.0
 itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==1.0
+passlib==1.7.1
 peewee==3.2.2
 pep8==1.7.1
 psycopg2-binary==2.7.4
+toml==0.10.0
 Werkzeug==0.14.1
