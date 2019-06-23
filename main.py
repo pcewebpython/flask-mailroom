@@ -34,11 +34,7 @@ def add_donation():
     Requires user to be logged in (session['logged_in']==True)
     If users not logged in, returns login page.
     """
-    try:
-        if session["logged_in"] is not True:
-            return redirect(url_for("login"))
-    except KeyError:
-        session["logged_in"] = False
+    if not logged_in():
         return redirect(url_for("login"))
 
     if request.method == "POST":
@@ -58,11 +54,18 @@ def add_donation():
 def login():
     """ Login page for users, required to add donation """
     if request.method == "POST":
-        user = User.select().where(User.name == request.form["name"]).get()
-        if user and pbkdf2_sha256.verify(request.form["password"], user.password):
-            session["logged_in"] = True
-            return redirect(url_for("all_donations"))
-        return render_template("login.jinja2", error="Incorrect username or password.")
+        try:
+            user = User.select().where(User.name == request.form["name"]).get()
+            if user and pbkdf2_sha256.verify(request.form["password"], user.password):
+                session["logged_in"] = True
+                return redirect(url_for("all_donations"))
+            return render_template(
+                "login.jinja2", error="Incorrect username or password."
+            )
+        except DoesNotExist:
+            return render_template(
+                "login.jinja2", error="Incorrect username or password."
+            )
     return render_template("login.jinja2")
 
 
@@ -73,17 +76,13 @@ def logout():
     Sets session['logged_in'] = False and returns all_donation page
     """
     session["logged_in"] = False
-    return redirect(url_for("all_donations"))
+    return redirect(url_for("login"))
 
 
 @app.route("/donors", methods=["GET", "POST"])
 def donors():
     """ Lists donors, and donations for selected donor """
-    try:
-        if session["logged_in"] is not True:
-            return redirect(url_for("login"))
-    except KeyError:
-        session["logged_in"] = False
+    if not logged_in():
         return redirect(url_for("login"))
 
     if request.method == "POST":
@@ -106,6 +105,22 @@ def donors():
             )
 
     return render_template("donors.jinja2", donors=Donor.select())
+
+
+def logged_in():
+    """ Determine if user is currently logged in.
+
+    Returns True if logged_in, False otherwise.
+    """
+    try:
+        if session["logged_in"]:
+            return True
+    except KeyError:
+        # Tried initializing session in main, but that doesn't work.
+        # How to default session["logged_in"] = False ???
+        session["logged_in"] = False
+        return False
+    return False
 
 
 def main():
