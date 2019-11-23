@@ -3,8 +3,26 @@
 <title>Mailroom</title>
 </head>
 <body>
-	<h1>Donations</h1>
-	<h2>{% block subtitle %} {% endblock subtitle %}</h2>
-	{% block content %} {% endblock content %}
+  <nav>
+    <a id="donations" href="{{ url_for('donations') }}">Donations</a>
+    <a id="donate" href="{{ url_for('donate') }}">New Donation</a>
+  </nav>
+  <h1>Donations</h1>
+  <h2>{% block subtitle %} {% endblock subtitle %}</h2>
+  {% block content %} {% endblock content %}
+  <div class="container" style="min-height:100% width:80%">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+          {{message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% block body %}{% endblock %}
+  </div>
 </body>
 </html>
