@@ -1,0 +1,15 @@
+{% extends 'base.jinja2' %}
+
+{% block subtitle %}New Donations {% endblock subtitle %}
+
+{% block content %}
+{#	<p>Total: <span id="total">{{ session.total }}</span></p>#}
+	<form method="POST">
+		<label for="name">Name: </label><input type="name" id="name" name="name">
+        <label for="amount">Amount: </label><input type="amount" id="amount" name="amount">
+		<input type="submit" value="New Donation!">
+	</form>
+{#	<form method="POST" action="{{ url_for('save') }}">#}
+{#		<input type="submit" value="Save It!">#}
+{#	</form>#}
+{% endblock content %}
