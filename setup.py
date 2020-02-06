@@ -1,3 +1,4 @@
+# The setup script
 import random
 from passlib.hash import pbkdf2_sha256
 
