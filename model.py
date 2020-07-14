@@ -5,11 +5,21 @@ from playhouse.db_url import connect
 
 db = connect(os.environ.get('DATABASE_URL', 'sqlite:///my_database.db'))
 
-class Donor(Model):
-    name = CharField(max_length=255, unique=True)
+
+class Login(Model):
+    username = CharField(max_length=255, unique=False)
+    password = CharField(max_length=255, unique=False)
 
     class Meta:
         database = db
+
+
+class Donor(Model):
+    name = CharField(max_length=255, unique=False)
+
+    class Meta:
+        database = db
+
 
 class Donation(Model):
     value = IntegerField()
