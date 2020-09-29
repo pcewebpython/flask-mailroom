@@ -2,7 +2,6 @@ import os
 import base64
 
 from flask import Flask, render_template, request, redirect, url_for, session
-
 from model import Donation, Donor
 
 app = Flask(__name__)
@@ -56,7 +55,6 @@ def donor_lookup():
     #         raise ValueError
     #     except ValueError:
     #         return render_template('lookup.jinja2', error="Name not found.")
-
     return render_template('lookup.jinja2')
 
 
