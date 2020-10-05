@@ -3,9 +3,19 @@
 {% block subtitle %}Donations{% endblock subtitle %}
 
 {% block content %}
+<form method="POST" action="/donations2/">
+    <label for="name-input">Name:</label><input id="name-input" type="text" name="name">
+    <label for="amount-input">Value:</label><input id="amount-input" type="text" name="value">
+    <input type="submit" value="Create donor">
+</form>
 <ul>
     {% for donation in donations %}
-        <li><b>{{ donation.donor.name }}</b>: {{ donation.value }}</li>
+        {% if donation.donor.name %}
+            <li><b>{{ donation.donor.name }}</b>: {{ donation.value }}</li>
+        {% else %}
+            <h1>No Username Exist!!</h1>
+        {% endif %}
+
     {% endfor %}
 </ul>
 {% endblock content %}

@@ -6,5 +6,9 @@
 	<h1>Donations</h1>
 	<h2>{% block subtitle %} {% endblock subtitle %}</h2>
 	{% block content %} {% endblock content %}
+    <ul>
+        <li><a href="{{ url_for('home') }}">home</a></li>
+        <li><a href="{{ url_for('create') }}">new donations</a></li>
+    </ul>
 </body>
 </html>
